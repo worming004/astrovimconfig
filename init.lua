@@ -8,6 +8,7 @@ return {
     polish = function()
         local opts = { noremap = true, silent = true }
         local map = vim.api.nvim_set_keymap
+        local unmap = vim.api.nvim_del_keymap
         local set = vim.opt
         -- Set options
         set.relativenumber = true
@@ -32,5 +33,8 @@ return {
             autocmd bufwritepost plugins.lua source <afile> | PackerSync
           augroup end
         ]]
+        -- unmap escape to use more easilty lazygit
+        unmap("t", "<esc>")
+        map("t", "<esc><esc>", "<c-\\><c-n>:q<CR>", {desc = "Quit terminal"})
   end,
 }
