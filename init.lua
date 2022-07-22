@@ -1,10 +1,17 @@
 return {
+    plugins = {
+        init = {
+            {"ChristianChiarulli/nvcode-color-schemes.vim"}
+        }
+    },
+    colorscheme = "nvcode",
     polish = function()
-    local opts = { noremap = true, silent = true }
-    local map = vim.api.nvim_set_keymap
-    local set = vim.opt
-    -- Set options
-    set.relativenumber = true
+        local opts = { noremap = true, silent = true }
+        local map = vim.api.nvim_set_keymap
+        local unmap = vim.api.nvim_del_keymap
+        local set = vim.opt
+        -- Set options
+        set.relativenumber = true
 
     -- Set key bindings
     map("o", "&", "1", opts)
@@ -29,12 +36,15 @@ return {
     map("n", "ç", "9", opts)
     map("n", "à", "0", opts)
 
-    -- Set autocommands
-    vim.cmd [[
-      augroup packer_conf
-        autocmd!
-        autocmd bufwritepost plugins.lua source <afile> | PackerSync
-      augroup end
-    ]]
+        -- Set autocommands
+        vim.cmd [[
+          augroup packer_conf
+            autocmd!
+            autocmd bufwritepost plugins.lua source <afile> | PackerSync
+          augroup end
+        ]]
+        -- unmap escape to use more easilty lazygit
+        unmap("t", "<esc>")
+        map("t", "<esc><esc>", "<c-\\><c-n>:q<CR>", {desc = "Quit terminal"})
   end,
 }
